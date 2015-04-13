@@ -44,7 +44,7 @@ void e_motor_draw_shape(shape_t shape)
 
 void e_motor_draw_square(dist_mm_t size)
 {
-    //Sqaure = rectangle with length=width
+    //Square = rectangle with length=width
     e_motor_draw_rectangle(size, size);
 }
 
@@ -89,28 +89,54 @@ void e_motor_draw_rect_triangle(dist_mm_t a, dist_mm_t b, dist_mm_t c)
 {
     if (PYTHAGORE_COND(a,b,c))
     {
-        deg_t theta = (deg_t) acos((float)b / (float)c);
+        e_motor_rect_triangle(a,b,c);
+    } else {
+        dist_mm_t computed_c = (dist_mm_t) sqrt(a*a + b*b);
+        e_motor_rect_triangle(a,b,computed_c);
+    }
+}
 
-        e_motor_move_dist(a,  0);
-        e_motor_move_dist(b, RIGHT_ANGLE);
-        e_motor_move_dist(c, ASSOCIATED_ANGLE(theta));
+void e_motor_rect_triangle(dist_mm_t a, dist_mm_t b, dist_mm_t c)
+{
+    deg_t theta = (deg_t) acos((float)b / (float)c);
 
-        if (flags.reset_dir) {
-            e_motor_rotate(RIGHT_ANGLE-theta);
-        }
+    e_motor_move_dist(a,  0);
+    e_motor_move_dist(b, RIGHT_ANGLE);
+    e_motor_move_dist(c, ASSOCIATED_ANGLE(theta));
+
+    if (flags.reset_dir) {
+       e_motor_rotate(RIGHT_ANGLE-theta);
     }
 }
 
 void e_motor_draw_reg_polygon(int n, dist_mm_t size)
 {
-    
+    int i;
+    for (i=0;i<=n;i++)
+    {
+        deg_t theta_n = (deg_t) (n-2) * 180.0 / n ;
+        e_motor_move_dist(size, ASSOCIATED_ANGLE(theta_n));
+    }
 }
 
 void e_motor_draw_circle(dist_mm_t radius)
 {
-    
+    e_motor_draw_oriented_circle(radius, CW);
 }
 
+void e_motor_draw_oriented_circle(dist_mm_t radius, rot_direction_t dir)
+{
+    float epsilon = (radius + E_PUCK_DIAM) / (float) radius; // (v_l / v_r)
+    speed_t speed_cw  = {.l = epsilon * 200 , .r = 200};
+    speed_t speed_ccw = {.l = 200 , .r = epsilon * 200};
+    int steps = 2 * PI * radius * STEP_PER_MM;
+
+    if (dir == CW) {
+        e_motor_go_to_position(steps, speed_cw);
+    } else {
+        e_motor_go_to_position(steps, speed_ccw);
+    }
+}
 
 void e_motor_init_flags(void)
 {

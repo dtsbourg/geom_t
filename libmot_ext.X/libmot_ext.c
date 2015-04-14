@@ -7,9 +7,9 @@
 #include "libmot_ext.h"
 #include "const.h"
 /****** /!\ Relative path /!\ ******/
-#include "../../../../Downloads/library/motor_led/e_motors.h"
-#include "../../../../Downloads/library/motor_led/e_init_port.h"
-#include "../../../../Downloads/library/motor_led/e_epuck_ports.h"
+#include "../motor_led/e_motors.h"
+#include "../motor_led/e_init_port.h"
+#include "../motor_led/e_epuck_ports.h"
 /****** /!\ Relative path /!\ ******/
 
 struct Motor {

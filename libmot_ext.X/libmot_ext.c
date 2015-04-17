@@ -17,7 +17,7 @@ struct Motor {
 } motor_r, motor_l;
 
 static int exec = 0;
-static int acc  = 1;
+static int acc  = ACC_ENABLE;
 static speed_t speed_obj;
 static speed_t current_speed;
 
@@ -40,41 +40,35 @@ int e_motor_select_prescaler(float delta_time)
 
 void Init_T3(speed_t final_speed, int time)
 {
-    if (!time)
+    T3CON = TMR_INIT;
+    TMR3 = TMR_INIT;
+    
+    if (!time) //Acceleration disabled
     {
         acc = 0;
-        T3CON = TMR_INIT;
         T3CONbits.TCKPS = PRESCALER;
 
-        TMR3 = TMR_INIT;
-
-        PR3 = 1000;
-
-        IFS0bits.T3IF = DISABLE; //Interrupt flag
-        IEC0bits.T3IE = ENABLE;  //Interrupt enable
-        T3CONbits.TON = TMR_ON;  //Start timer
-    } else {
+        PR3 = STD_CLK;
+    } else { //Acceleration enabled
         acc=1;
-        
-        speed_obj = final_speed;
-        current_speed = ZERO;
 
+        speed_obj = final_speed;    //Set speed goal
+        current_speed = ZERO;       //Initialize current speed
+
+        //Calculate timer frequencies
         float avg_speed = ( final_speed.l + final_speed.r ) / 2.0;
         float delta_time = time / avg_speed;
 
         int prescaler = e_motor_select_prescaler(delta_time);
 
-        T3CON = TMR_INIT;
         T3CONbits.TCKPS = prescaler;
 
-        TMR3 = TMR_INIT;
-
-        PR3 = (FCY/prescaler)*(delta_time)/(5.0);
-
-        IFS0bits.T3IF = DISABLE; //Interrupt flag
-        IEC0bits.T3IE = ENABLE;  //Interrupt enable
-        T3CONbits.TON = TMR_ON;  //Start timer
+        PR3 = (FCY/prescaler)*(delta_time/INCR);
     }
+
+    IFS0bits.T3IF = DISABLE; //Interrupt flag
+    IEC0bits.T3IE = ENABLE;  //Interrupt enable
+    T3CONbits.TON = TMR_ON;  //Start timer
 }
 
 void _ISR __attribute__((auto_psv)) _T3Interrupt (void)
@@ -83,17 +77,10 @@ void _ISR __attribute__((auto_psv)) _T3Interrupt (void)
     
     if (acc && !e_motor_should_stop_acc(current_speed)) {
 
-        current_speed.l = current_speed.l + 5;
-        current_speed.r = current_speed.r + 5;
+        current_speed.l = current_speed.l + INCR;
+        current_speed.r = current_speed.r + INCR;
         
         e_motor_set_speed(current_speed);
-
-        // make sure steps objective is respected
-        //Otherwise :
-//        position_t current_pos = {.l = motor_l.step_max - e_get_steps_left(),
-//                                  .r = motor_r.step_max - e_get_steps_right()};
-//
-//        e_motor_go_to_position(current_pos, current_speed);
     }
 
     exec = !e_motor_should_stop();

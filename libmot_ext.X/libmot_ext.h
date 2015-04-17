@@ -27,6 +27,14 @@ extern "C" {
 
 #define ZERO ((speed_t) { .l = 0, .r = 0 })
 
+/***********ACCELERATION***********/
+#define ACC_ENABLE  1
+#define ACC_DISABLE 0
+
+#define STD_CLK 1000
+
+#define INCR 5
+
 /***********TYPE ALIAS***********/
 typedef enum {STOP,GO} exec_state_t;
 typedef int dist_mm_t;

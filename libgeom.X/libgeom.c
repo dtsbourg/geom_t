@@ -168,17 +168,17 @@ void e_motor_init_flags(void)
     geom_flags.reset_dir = 1;
 }
 
-int main ()
-{
-    e_motor_init_dispatcher(ACC_DISABLE);
-    e_motor_init_flags();
-
-    //coord_t coord1 = (coord_t){.x = 100,.y = 50};
-    //e_motor_draw_curves(coord1);
-    coord_t coord2 = (coord_t){.x = 30, .y = -40};
-    e_motor_draw_curves(coord2);
-   
-    e_motor_stop();
-
-    while (1) {}
-}
+//int main ()
+//{
+//    e_motor_init_dispatcher(ACC_DISABLE);
+//    e_motor_init_flags();
+//
+//    //coord_t coord1 = (coord_t){.x = 100,.y = 50};
+//    //e_motor_draw_curves(coord1);
+//    coord_t coord2 = (coord_t){.x = 30, .y = -40};
+//    e_motor_draw_curves(coord2);
+//
+//    e_motor_stop();
+//
+//    while (1) {}
+//}

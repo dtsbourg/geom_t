@@ -24,18 +24,21 @@ struct Control {
 static speed_t speed_goal;
 static speed_t current_speed;
 static step_t acc_len = 0;
+static int acc_state;
 
 
-int e_motor_should_stop_acc(speed_t current_speed)
+int e_motor_should_acc(speed_t current_speed)
 {
-    return ((ABS(current_speed.l) >= ABS(speed_goal.l))
-         && (ABS(current_speed.r) >= ABS(speed_goal.r)));
+    return ((ABS(current_speed.l) <= ABS(speed_goal.l))
+         && (ABS(current_speed.r) <= ABS(speed_goal.r)));
 }
 
-int e_motor_should_start_dec()
+int e_motor_should_dec(void)
 {
     return ((ABS( e_get_steps_left()) >= ABS(motor_l.step_max) - acc_len)
-         && (ABS(e_get_steps_right()) >= ABS(motor_r.step_max) - acc_len));
+         && (ABS(e_get_steps_right()) >= ABS(motor_r.step_max) - acc_len)
+         && current_speed.l > 0
+         && current_speed.r > 0);
 }
 
 //Prevents PR3 overflow
@@ -63,7 +66,7 @@ void Init_T3(speed_t final_speed, float time)
         
         mot_flags.acc_enabled=ACC_ENABLE;
 
-        speed_goal = final_speed;    //Set speed goal
+        speed_goal = final_speed;   //Set speed goal
         current_speed = ZERO;       //Initialize current speed
 
         //Calculate timer frequencies
@@ -84,29 +87,37 @@ void Init_T3(speed_t final_speed, float time)
     T3CONbits.TON = TMR_ON;  //Start timer
 }
 
+
 void _ISR __attribute__((auto_psv)) _T3Interrupt (void)
 {
-    //TODO : Compatibility with backwards {acc, dec}eleration also
     IFS0bits.T3IF = DISABLE;
-
+    
     if (mot_flags.acc_enabled) {
-        if (!e_motor_should_stop_acc(current_speed)) {
+        if ((acc_state == 0) && e_motor_should_acc(current_speed)) {
 
             current_speed.l = current_speed.l + INCR;
             current_speed.r = current_speed.r + INCR;
 
             e_motor_set_speed(current_speed);
             
-        } else if (e_motor_should_start_dec()) {
+        } else if (acc_state == 0) {
+            acc_state = 1;
+        }
+
+        if (e_motor_should_dec()) {
+            acc_state = 2;
             
             current_speed.l = current_speed.l - INCR;
             current_speed.r = current_speed.r - INCR;
 
             e_motor_set_speed(current_speed);
+
+        } else if (acc_state == 2) {
+            mot_flags.exec = 0;
         }
+    } else {
+        mot_flags.exec = !e_motor_should_stop();
     }
-    
-    mot_flags.exec = !e_motor_should_stop();
 }
 
 void e_motor_go_to_position(position_t pos, speed_t speed)
@@ -198,14 +209,14 @@ void e_motor_init_dispatcher(int acc)
     e_init_motors();
 }
 
-//
-//int main ()
-//{
-//    e_motor_init_dispatcher(ACC_ENABLE);
-//
-//    e_motor_move_dist(300, 0);
-//
-//    e_motor_stop();
-//
-//    while (1) {}
-//}
+
+int main ()
+{
+    e_motor_init_dispatcher(ACC_ENABLE);
+
+    e_motor_move_dist(400, 0);
+
+    e_motor_stop();
+
+    while (1) {}
+}

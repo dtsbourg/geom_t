@@ -12,7 +12,7 @@
 
 struct Control {
     int reset_dir:1; //Should e_puck rotate back to original orientation
-} flags;
+} geom_flags;
 
 void e_motor_draw_shape(shape_t shape)
 {
@@ -54,7 +54,7 @@ void e_motor_draw_rectangle(dist_mm_t length, dist_mm_t width)
     e_motor_move_dist(length, RIGHT_ANGLE);
     e_motor_move_dist(width , RIGHT_ANGLE);
     
-    if(flags.reset_dir) {
+    if(geom_flags.reset_dir) {
         e_motor_rotate(RIGHT_ANGLE);
     }
 }
@@ -68,7 +68,7 @@ void e_motor_draw_iso_triangle(dist_mm_t size_base, dist_mm_t size_leg)
     e_motor_move_dist(size_leg, ASSOCIATED_ANGLE(RAD_2_DEG(theta)));
     e_motor_move_dist(size_leg, ASSOCIATED_ANGLE(RAD_2_DEG(phi)));
 
-    if (flags.reset_dir) {
+    if (geom_flags.reset_dir) {
         e_motor_rotate(ASSOCIATED_ANGLE(theta-phi));
     }
 }
@@ -79,7 +79,7 @@ void e_motor_draw_equi_triangle(dist_mm_t size)
     e_motor_move_dist(size, 120);
     e_motor_move_dist(size, 120);
 
-    if (flags.reset_dir) {
+    if (geom_flags.reset_dir) {
         e_motor_rotate(120);
     }
 }
@@ -92,7 +92,7 @@ void e_motor_rect_triangle(dist_mm_t a, dist_mm_t b, dist_mm_t c)
     e_motor_move_dist(b, RIGHT_ANGLE);
     e_motor_move_dist(c, ASSOCIATED_ANGLE(RAD_2_DEG(theta)));
 
-    if (flags.reset_dir) {
+    if (geom_flags.reset_dir) {
        e_motor_rotate(RIGHT_ANGLE+RAD_2_DEG(theta));
     }
 }
@@ -144,7 +144,7 @@ void e_motor_draw_oriented_arc_circle(dist_mm_t radius, rot_direction_t dir, rad
     speed_t speed_cw  = {.l = epsilon * 200 , .r = 200};
     speed_t speed_ccw = {.l = 200 , .r = epsilon * 200};
 
-    int steps = alpha * radius * STEP_PER_MM;
+    step_t steps = alpha * radius * STEP_PER_MM;
 
     position_t pos = {.l=steps, .r=steps};
 
@@ -165,12 +165,12 @@ void e_motor_draw_circle(dist_mm_t radius)
 
 void e_motor_init_flags(void)
 {
-    flags.reset_dir = 1;
+    geom_flags.reset_dir = 1;
 }
 
 int main ()
 {
-    e_motor_init_dispatcher(0);
+    e_motor_init_dispatcher(ACC_DISABLE);
     e_motor_init_flags();
 
     //coord_t coord1 = (coord_t){.x = 100,.y = 50};

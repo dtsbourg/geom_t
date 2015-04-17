@@ -16,16 +16,26 @@ struct Motor {
     long step_max;
 } motor_r, motor_l;
 
-static int exec = 0;
-static int acc  = ACC_ENABLE;
-static speed_t speed_obj;
+struct Control {
+    int exec:1;
+    int acc_enabled:1;
+} mot_flags;
+
+static speed_t speed_goal;
 static speed_t current_speed;
+static step_t acc_len = 0;
 
 
 int e_motor_should_stop_acc(speed_t current_speed)
 {
-    return ((ABS(current_speed.l) >= ABS(speed_obj.l))
-         && (ABS(current_speed.r) >= ABS(speed_obj.r)));
+    return ((ABS(current_speed.l) >= ABS(speed_goal.l))
+         && (ABS(current_speed.r) >= ABS(speed_goal.r)));
+}
+
+int e_motor_should_start_dec()
+{
+    return ((ABS( e_get_steps_left()) >= ABS(motor_l.step_max) - acc_len)
+         && (ABS(e_get_steps_right()) >= ABS(motor_r.step_max) - acc_len));
 }
 
 //Prevents PR3 overflow
@@ -38,21 +48,22 @@ int e_motor_select_prescaler(float delta_time)
     else return -1; //delta_time < 10 µs => error
 }
 
-void Init_T3(speed_t final_speed, int time)
+void Init_T3(speed_t final_speed, float time)
 {
     T3CON = TMR_INIT;
     TMR3 = TMR_INIT;
     
     if (!time) //Acceleration disabled
     {
-        acc = 0;
+        mot_flags.acc_enabled = ACC_DISABLE;
         T3CONbits.TCKPS = PRESCALER;
 
         PR3 = STD_CLK;
     } else { //Acceleration enabled
-        acc=1;
+        
+        mot_flags.acc_enabled=ACC_ENABLE;
 
-        speed_obj = final_speed;    //Set speed goal
+        speed_goal = final_speed;    //Set speed goal
         current_speed = ZERO;       //Initialize current speed
 
         //Calculate timer frequencies
@@ -64,6 +75,8 @@ void Init_T3(speed_t final_speed, int time)
         T3CONbits.TCKPS = prescaler;
 
         PR3 = (FCY/prescaler)*(delta_time/INCR);
+
+        acc_len = avg_speed * time; //steps
     }
 
     IFS0bits.T3IF = DISABLE; //Interrupt flag
@@ -73,22 +86,32 @@ void Init_T3(speed_t final_speed, int time)
 
 void _ISR __attribute__((auto_psv)) _T3Interrupt (void)
 {
+    //TODO : Compatibility with backwards {acc, dec}eleration also
     IFS0bits.T3IF = DISABLE;
-    
-    if (acc && !e_motor_should_stop_acc(current_speed)) {
 
-        current_speed.l = current_speed.l + INCR;
-        current_speed.r = current_speed.r + INCR;
-        
-        e_motor_set_speed(current_speed);
+    if (mot_flags.acc_enabled) {
+        if (!e_motor_should_stop_acc(current_speed)) {
+
+            current_speed.l = current_speed.l + INCR;
+            current_speed.r = current_speed.r + INCR;
+
+            e_motor_set_speed(current_speed);
+            
+        } else if (e_motor_should_start_dec()) {
+            
+            current_speed.l = current_speed.l - INCR;
+            current_speed.r = current_speed.r - INCR;
+
+            e_motor_set_speed(current_speed);
+        }
     }
-
-    exec = !e_motor_should_stop();
+    
+    mot_flags.exec = !e_motor_should_stop();
 }
 
 void e_motor_go_to_position(position_t pos, speed_t speed)
 {
-    exec = 1;
+    mot_flags.exec = 1;
 
     //Set initial step values
     e_set_steps_left(0);
@@ -101,12 +124,12 @@ void e_motor_go_to_position(position_t pos, speed_t speed)
     e_motor_set_speed(speed);
 
     //Wait until action has completed
-    while (exec);
+    while (mot_flags.exec);
 }
 
 void e_motor_rotate(deg_t angle)
 {
-    int steps = (int) ((STEP_PER_MM*PI*E_PUCK_DIAM*ABS(angle))/360.0);
+    step_t steps = (step_t) ((STEP_PER_MM*PI*E_PUCK_DIAM*ABS(angle))/360.0);
     
     position_t pos = ((position_t){ .l = steps, .r = steps });
     //Rotate clock-wise or counter clock-wise depending on angle's sign
@@ -118,9 +141,9 @@ void e_motor_rotate(deg_t angle)
 
 void e_motor_move_dist(dist_mm_t dist, deg_t angle)
 {
-    unsigned int steps = (unsigned int) (dist*STEP_PER_MM);
+    step_t steps = (step_t) (dist*STEP_PER_MM);
     position_t pos = ((position_t){ .l = steps, .r = steps });
-    speed_t speed = acc ? current_speed : MID_F;
+    speed_t speed = mot_flags.acc_enabled ? current_speed : MID_F;
     
     if (angle) {
         e_motor_rotate(angle);
@@ -178,7 +201,7 @@ void e_motor_init_dispatcher(int acc)
 //
 //int main ()
 //{
-//    e_motor_init_dispatcher(1);
+//    e_motor_init_dispatcher(ACC_ENABLE);
 //
 //    e_motor_move_dist(300, 0);
 //

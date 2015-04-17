@@ -36,8 +36,8 @@ extern "C" {
 #define INCR 5
 
 /***********TYPE ALIAS***********/
-typedef enum {STOP,GO} exec_state_t;
 typedef int dist_mm_t;
+typedef int step_t;
 typedef int deg_t;
 typedef float rad_t;
 
@@ -48,8 +48,8 @@ typedef struct Speed {
 } speed_t;
 
 typedef struct Position {
-    unsigned int l;
-    unsigned int r;
+    step_t l;
+    step_t r;
 } position_t;
 
 /***********API***********/

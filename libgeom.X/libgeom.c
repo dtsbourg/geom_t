@@ -8,12 +8,7 @@
 #include "../motor_led/e_epuck_ports.h"
 #include <math.h>
 
-#define PYTHAGORE_COND(a,b,c) (a*a + b*b == c*c)
-#define PYTHAGOREAN_TRIPLE 104, 153, 185 //Verfies PYTAHGOREAN_COND
-#define ASSOCIATED_ANGLE(d) (180-d)
-#define DEG_2_RAD(d) d*PI/180.0
-#define RAD_2_DEG(r) r*180.0/PI
-#define EUCL_DIST(x,y) (sqrt(x*x+y*y))
+
 
 #define DEFAULT_LEN 50                   //Default debug value
 #define RIGHT_ANGLE 90                   //Right angle = 90 deg

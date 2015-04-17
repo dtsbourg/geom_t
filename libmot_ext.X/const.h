@@ -26,6 +26,8 @@ extern "C" {
 
 /***********UTILS***********/
 #define ABS(n) (((n) < 0) ? -(n) : (n))
+#define EUCL_DIST(x,y) (sqrt(x*x+y*y))
+
 #define PI 3.1415
 
 /***********LEDs***********/

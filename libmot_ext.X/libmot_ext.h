@@ -39,6 +39,7 @@ extern "C" {
 typedef enum {STOP,GO} exec_state_t;
 typedef int dist_mm_t;
 typedef int deg_t;
+typedef float rad_t;
 
 /***********DATA STRUCTURES***********/
 typedef struct Speed {

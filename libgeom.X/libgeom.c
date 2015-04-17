@@ -8,10 +8,7 @@
 #include "../motor_led/e_epuck_ports.h"
 #include <math.h>
 
-
-
 #define DEFAULT_LEN 50                   //Default debug value
-#define RIGHT_ANGLE 90                   //Right angle = 90 deg
 
 struct Control {
     int reset_dir:1; //Should e_puck rotate back to original orientation
@@ -35,6 +32,9 @@ void e_motor_draw_shape(shape_t shape)
             break;
         case TRIANGLE_ISOC:
             e_motor_draw_iso_triangle(DEFAULT_LEN * 2, DEFAULT_LEN * 3);
+            break;
+        case CIRCLE:
+            e_motor_draw_circle(DEFAULT_LEN);
             break;
         default:
             break;
@@ -61,8 +61,8 @@ void e_motor_draw_rectangle(dist_mm_t length, dist_mm_t width)
 
 void e_motor_draw_iso_triangle(dist_mm_t size_base, dist_mm_t size_leg)
 {
-    float theta = acos((size_base / (size_leg * 2.0)));
-    float phi = 2 * asin((size_base / (size_leg * 2.0)));
+    rad_t theta = acos((size_base / (size_leg * 2.0)));
+    rad_t phi = 2 * asin((size_base / (size_leg * 2.0)));
 
     e_motor_move_dist(size_base, 0);
     e_motor_move_dist(size_leg, ASSOCIATED_ANGLE(RAD_2_DEG(theta)));
@@ -86,7 +86,7 @@ void e_motor_draw_equi_triangle(dist_mm_t size)
 
 void e_motor_rect_triangle(dist_mm_t a, dist_mm_t b, dist_mm_t c)
 {
-    float theta = acos((float)b / (float)c);
+    rad_t theta = acos((float)b / (float)c);
 
     e_motor_move_dist(a,  0);
     e_motor_move_dist(b, RIGHT_ANGLE);
@@ -120,10 +120,10 @@ void e_motor_draw_reg_polygon(int n, dist_mm_t size)
 
 void e_motor_draw_curves(coord_t dest)
 {
-    float radius = ( (dest.y*dest.y) / (2.0 * dest.x) ) + 0.5 * dest.x;
+    rad_t radius = ( (dest.y*dest.y) / (2.0 * dest.x) ) + 0.5 * dest.x;
     float eucl_dist = EUCL_DIST(dest.x, dest.y);
 
-    float alpha = 2.0 * asin(eucl_dist / (2.0 * radius));
+    rad_t alpha = 2.0 * asin(eucl_dist / (2.0 * radius));
     
     rot_direction_t dir;
 
@@ -137,7 +137,7 @@ void e_motor_draw_curves(coord_t dest)
     e_motor_draw_oriented_arc_circle(ABS((dist_mm_t)radius),dir,alpha);
 }
 
-void e_motor_draw_oriented_arc_circle(dist_mm_t radius, rot_direction_t dir, float alpha)
+void e_motor_draw_oriented_arc_circle(dist_mm_t radius, rot_direction_t dir, rad_t alpha)
 {
     float epsilon = (radius + E_PUCK_DIAM) / (float) radius; // (v_l / v_r)
         
@@ -148,11 +148,9 @@ void e_motor_draw_oriented_arc_circle(dist_mm_t radius, rot_direction_t dir, flo
 
     position_t pos = {.l=steps, .r=steps};
 
-    if (dir == CW) {
-      e_motor_go_to_position(pos, speed_cw);
-    } else {
-      e_motor_go_to_position(pos, speed_ccw);
-    }
+    if (dir == CW) e_motor_go_to_position(pos, speed_cw);
+    else e_motor_go_to_position(pos, speed_ccw);
+    
 }
 
 void e_motor_draw_oriented_circle(dist_mm_t radius, rot_direction_t dir)

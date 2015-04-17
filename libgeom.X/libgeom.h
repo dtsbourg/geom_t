@@ -18,6 +18,7 @@ extern "C" {
 /***********UTILS***********/
 #define PYTHAGORE_COND(a,b,c) (a*a + b*b == c*c)
 #define PYTHAGOREAN_TRIPLE 104, 153, 185 //Verfies PYTAHGOREAN_COND
+#define RIGHT_ANGLE 90                   //Right angle = 90 deg
     
 #define ASSOCIATED_ANGLE(d) (180-d)
 
@@ -28,7 +29,7 @@ extern "C" {
 
 
 /***********SHAPES***********/
-typedef enum {SQUARE, RECTANGLE, TRIANGLE_EQUI, TRIANGLE_RECT, TRIANGLE_ISOC} shape_t;
+typedef enum {SQUARE, RECTANGLE, TRIANGLE_EQUI, TRIANGLE_RECT, TRIANGLE_ISOC, CIRCLE} shape_t;
 typedef enum {CW, CCW} rot_direction_t;
 
 typedef struct Coordinates {
@@ -113,7 +114,7 @@ void e_motor_draw_curves(coord_t dest);
  *      \param dir    : rotation direction (clockwise=CW, counterclockwise=CCW)
  *      \param alpha  : arc angle
  */
-void e_motor_draw_oriented_arc_circle(dist_mm_t radius, rot_direction_t dir, float alpha);
+void e_motor_draw_oriented_arc_circle(dist_mm_t radius, rot_direction_t dir, rad_t alpha);
 
 
 

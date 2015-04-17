@@ -17,6 +17,11 @@ extern "C" {
 typedef enum {SQUARE, RECTANGLE, TRIANGLE_EQUI, TRIANGLE_RECT, TRIANGLE_ISOC} shape_t;
 typedef enum {CW, CCW} rot_direction_t;
 
+typedef struct Coordinates {
+    dist_mm_t x;
+    dist_mm_t y;
+} coord_t;
+
 /*Draws specified shape with default sizes*/
 void e_motor_draw_shape(shape_t shape);
 
@@ -60,6 +65,12 @@ void e_motor_draw_oriented_circle(dist_mm_t radius, rot_direction_t dir);
  * Allows to translate of radius before accomplishing circle
  */
 void e_motor_draw_circle_translated(dist_mm_t radius);
+
+void e_motor_draw_curves(coord_t dest);
+
+void e_motor_draw_oriented_arc_circle(dist_mm_t radius, rot_direction_t dir, float alpha);
+
+
 
 /********CONTROL*********/
 /*Initializes flags*/

@@ -4,12 +4,12 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>../../../../Downloads/library/motor_led/e_epuck_ports.h</itemPath>
-      <itemPath>../../../../Downloads/library/motor_led/e_init_port.h</itemPath>
-      <itemPath>../../../../Downloads/library/motor_led/e_motors.h</itemPath>
       <itemPath>../libmot_ext.X/const.h</itemPath>
       <itemPath>../libmot_ext.X/libmot_ext.h</itemPath>
       <itemPath>libgeom.h</itemPath>
+      <itemPath>../motor_led/e_epuck_ports.h</itemPath>
+      <itemPath>../motor_led/e_init_port.h</itemPath>
+      <itemPath>../motor_led/e_motors.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -18,10 +18,10 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>../../../../Downloads/library/motor_led/e_init_port.c</itemPath>
-      <itemPath>../../../../Downloads/library/motor_led/e_motors.c</itemPath>
       <itemPath>../libmot_ext.X/libmot_ext.c</itemPath>
       <itemPath>libgeom.c</itemPath>
+      <itemPath>../motor_led/e_init_port.c</itemPath>
+      <itemPath>../motor_led/e_motors.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -32,6 +32,7 @@
   <sourceRootList>
     <Elem>../../../../Downloads/library/motor_led</Elem>
     <Elem>../libmot_ext.X</Elem>
+    <Elem>../motor_led</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -189,7 +190,7 @@
         <property key="OUTPUT COMPARE 8" value="true"/>
         <property key="SPI 1" value="true"/>
         <property key="SPI 2" value="true"/>
-        <property key="SecureSegment.SegmentProgramming" value="FullChipProgramming"/>
+        <property key="SecureSegment.SegmentProgramming" value="SegmentProgrammingAll"/>
         <property key="TIMER1" value="true"/>
         <property key="TIMER2" value="true"/>
         <property key="TIMER3" value="true"/>

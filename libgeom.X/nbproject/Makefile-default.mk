@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=../../../../Downloads/library/motor_led/e_init_port.c ../../../../Downloads/library/motor_led/e_motors.c ../libmot_ext.X/libmot_ext.c libgeom.c
+SOURCEFILES_QUOTED_IF_SPACED=../libmot_ext.X/libmot_ext.c libgeom.c ../motor_led/e_init_port.c ../motor_led/e_motors.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/263976809/e_init_port.o ${OBJECTDIR}/_ext/263976809/e_motors.o ${OBJECTDIR}/_ext/640575336/libmot_ext.o ${OBJECTDIR}/libgeom.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/263976809/e_init_port.o.d ${OBJECTDIR}/_ext/263976809/e_motors.o.d ${OBJECTDIR}/_ext/640575336/libmot_ext.o.d ${OBJECTDIR}/libgeom.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/640575336/libmot_ext.o ${OBJECTDIR}/libgeom.o ${OBJECTDIR}/_ext/462069326/e_init_port.o ${OBJECTDIR}/_ext/462069326/e_motors.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/640575336/libmot_ext.o.d ${OBJECTDIR}/libgeom.o.d ${OBJECTDIR}/_ext/462069326/e_init_port.o.d ${OBJECTDIR}/_ext/462069326/e_motors.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/_ext/263976809/e_init_port.o ${OBJECTDIR}/_ext/263976809/e_motors.o ${OBJECTDIR}/_ext/640575336/libmot_ext.o ${OBJECTDIR}/libgeom.o
+OBJECTFILES=${OBJECTDIR}/_ext/640575336/libmot_ext.o ${OBJECTDIR}/libgeom.o ${OBJECTDIR}/_ext/462069326/e_init_port.o ${OBJECTDIR}/_ext/462069326/e_motors.o
 
 # Source Files
-SOURCEFILES=../../../../Downloads/library/motor_led/e_init_port.c ../../../../Downloads/library/motor_led/e_motors.c ../libmot_ext.X/libmot_ext.c libgeom.c
+SOURCEFILES=../libmot_ext.X/libmot_ext.c libgeom.c ../motor_led/e_init_port.c ../motor_led/e_motors.c
 
 
 CFLAGS=
@@ -82,20 +82,6 @@ MP_LINKER_FILE_OPTION=,--script=p30F6014A.gld
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/_ext/263976809/e_init_port.o: ../../../../Downloads/library/motor_led/e_init_port.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/_ext/263976809" 
-	@${RM} ${OBJECTDIR}/_ext/263976809/e_init_port.o.d 
-	@${RM} ${OBJECTDIR}/_ext/263976809/e_init_port.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../../../../Downloads/library/motor_led/e_init_port.c  -o ${OBJECTDIR}/_ext/263976809/e_init_port.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/263976809/e_init_port.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
-	@${FIXDEPS} "${OBJECTDIR}/_ext/263976809/e_init_port.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/_ext/263976809/e_motors.o: ../../../../Downloads/library/motor_led/e_motors.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/_ext/263976809" 
-	@${RM} ${OBJECTDIR}/_ext/263976809/e_motors.o.d 
-	@${RM} ${OBJECTDIR}/_ext/263976809/e_motors.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../../../../Downloads/library/motor_led/e_motors.c  -o ${OBJECTDIR}/_ext/263976809/e_motors.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/263976809/e_motors.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
-	@${FIXDEPS} "${OBJECTDIR}/_ext/263976809/e_motors.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
 ${OBJECTDIR}/_ext/640575336/libmot_ext.o: ../libmot_ext.X/libmot_ext.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/_ext/640575336" 
 	@${RM} ${OBJECTDIR}/_ext/640575336/libmot_ext.o.d 
@@ -110,21 +96,21 @@ ${OBJECTDIR}/libgeom.o: libgeom.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} $(MP_EXTRA_CC_PRE)  libgeom.c  -o ${OBJECTDIR}/libgeom.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/libgeom.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/libgeom.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+${OBJECTDIR}/_ext/462069326/e_init_port.o: ../motor_led/e_init_port.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/462069326" 
+	@${RM} ${OBJECTDIR}/_ext/462069326/e_init_port.o.d 
+	@${RM} ${OBJECTDIR}/_ext/462069326/e_init_port.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../motor_led/e_init_port.c  -o ${OBJECTDIR}/_ext/462069326/e_init_port.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/462069326/e_init_port.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/_ext/462069326/e_init_port.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/_ext/462069326/e_motors.o: ../motor_led/e_motors.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/462069326" 
+	@${RM} ${OBJECTDIR}/_ext/462069326/e_motors.o.d 
+	@${RM} ${OBJECTDIR}/_ext/462069326/e_motors.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../motor_led/e_motors.c  -o ${OBJECTDIR}/_ext/462069326/e_motors.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/462069326/e_motors.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/_ext/462069326/e_motors.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
 else
-${OBJECTDIR}/_ext/263976809/e_init_port.o: ../../../../Downloads/library/motor_led/e_init_port.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/_ext/263976809" 
-	@${RM} ${OBJECTDIR}/_ext/263976809/e_init_port.o.d 
-	@${RM} ${OBJECTDIR}/_ext/263976809/e_init_port.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../../../../Downloads/library/motor_led/e_init_port.c  -o ${OBJECTDIR}/_ext/263976809/e_init_port.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/263976809/e_init_port.o.d"        -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
-	@${FIXDEPS} "${OBJECTDIR}/_ext/263976809/e_init_port.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/_ext/263976809/e_motors.o: ../../../../Downloads/library/motor_led/e_motors.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/_ext/263976809" 
-	@${RM} ${OBJECTDIR}/_ext/263976809/e_motors.o.d 
-	@${RM} ${OBJECTDIR}/_ext/263976809/e_motors.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../../../../Downloads/library/motor_led/e_motors.c  -o ${OBJECTDIR}/_ext/263976809/e_motors.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/263976809/e_motors.o.d"        -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
-	@${FIXDEPS} "${OBJECTDIR}/_ext/263976809/e_motors.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
 ${OBJECTDIR}/_ext/640575336/libmot_ext.o: ../libmot_ext.X/libmot_ext.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/_ext/640575336" 
 	@${RM} ${OBJECTDIR}/_ext/640575336/libmot_ext.o.d 
@@ -138,6 +124,20 @@ ${OBJECTDIR}/libgeom.o: libgeom.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/libgeom.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  libgeom.c  -o ${OBJECTDIR}/libgeom.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/libgeom.o.d"        -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/libgeom.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/_ext/462069326/e_init_port.o: ../motor_led/e_init_port.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/462069326" 
+	@${RM} ${OBJECTDIR}/_ext/462069326/e_init_port.o.d 
+	@${RM} ${OBJECTDIR}/_ext/462069326/e_init_port.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../motor_led/e_init_port.c  -o ${OBJECTDIR}/_ext/462069326/e_init_port.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/462069326/e_init_port.o.d"        -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/_ext/462069326/e_init_port.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/_ext/462069326/e_motors.o: ../motor_led/e_motors.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/462069326" 
+	@${RM} ${OBJECTDIR}/_ext/462069326/e_motors.o.d 
+	@${RM} ${OBJECTDIR}/_ext/462069326/e_motors.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../motor_led/e_motors.c  -o ${OBJECTDIR}/_ext/462069326/e_motors.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/462069326/e_motors.o.d"        -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/_ext/462069326/e_motors.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 

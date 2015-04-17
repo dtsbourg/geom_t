@@ -25,9 +25,11 @@ extern "C" {
 #define ROT_MID_CW  ((speed_t) { .l =  400, .r = -400 })
 #define ROT_MID_CCW ((speed_t) { .l = -400, .r =  400 })
 
+#define ZERO ((speed_t) { .l = 0, .r = 0 })
+
 /***********TYPE ALIAS***********/
 typedef enum {STOP,GO} exec_state_t;
-typedef unsigned int dist_mm_t;
+typedef int dist_mm_t;
 typedef int deg_t;
 
 /***********DATA STRUCTURES***********/
@@ -59,7 +61,10 @@ void e_motor_stop(void);
 /*Return 1 if motor has reached counter destination*/
 int e_motor_should_stop(void);
 /*Init dispatcher*/
-void e_motor_init_dispatcher(void);
+void e_motor_init_dispatcher(int acc);
+
+/*==Acceleration profile==*/
+void e_motor_acc_enable(void);
 
 #ifdef	__cplusplus
 }

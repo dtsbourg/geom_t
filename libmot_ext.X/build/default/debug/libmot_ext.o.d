@@ -1,4 +1,4 @@
-build/default/production/libmot_ext.o:  \
+build/default/debug/libmot_ext.o:  \
 libmot_ext.c  \
 libmot_ext.h  \
 const.h  \

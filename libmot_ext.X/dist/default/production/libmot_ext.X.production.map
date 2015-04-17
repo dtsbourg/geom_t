@@ -22,9 +22,8 @@ Command:
   -L/Applications/microchip/xc16/v1.24/bin/bin/../../lib/dsPIC33F \
   -L/Applications/microchip/xc16/v1.24/bin/bin/../../support/dsPIC33F/gld \
   build/default/production/libmot_ext.o \
-  build/default/production/_ext/263976809/e_init_port.o \
-  build/default/production/_ext/263976809/e_led.o \
-  build/default/production/_ext/263976809/e_motors.o \
+  build/default/production/_ext/462069326/e_init_port.o \
+  build/default/production/_ext/462069326/e_motors.o \
   --defsym=__MPLAB_BUILD=1 \
   -Tp30F6014A.gld.00 \
   --stack=16 \
@@ -54,12 +53,16 @@ Archive member included because of file (symbol)
                               /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libpic30-elf.a(crt0_standard.o) (__data_init_standard)
 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(divsf3.eo)
                               build/default/production/libmot_ext.o (___divsf3)
+/Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(fgtge.eo)
+                              build/default/production/libmot_ext.o (___gesf2)
 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(fixsfsi.eo)
                               build/default/production/libmot_ext.o (_(float, int, long long, short, float, short, int))
 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(fixunssfsi.eo)
-                              build/default/production/_ext/263976809/e_motors.o (___fixunssfsi)
+                              build/default/production/libmot_ext.o (___fixunssfsi)
 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(floatsisf.eo)
                               build/default/production/libmot_ext.o (___floatsisf)
+/Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(floatunsisf.eo)
+                              build/default/production/libmot_ext.o (___floatunsisf)
 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(fpack.eo)
                               /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(divsf3.eo) (__fpack)
 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(funpack.eo)
@@ -70,10 +73,12 @@ Archive member included because of file (symbol)
                               /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(divsf3.eo) (__fPropagateNaN)
 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(mulsf3.eo)
                               build/default/production/libmot_ext.o (___mulsf3)
+/Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(fcompare.eo)
+                              /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(fgtge.eo) (__fcompare)
 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(floatdisf.eo)
                               /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(floatsisf.eo) (___floatdisf)
 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(floatundisf.eo)
-                              /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(floatdisf.eo) (___floatundisf)
+                              /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(floatunsisf.eo) (___floatundisf)
 
 
 Selected CodeGuard Options:
@@ -100,11 +105,11 @@ Program Memory  [Origin = 0x100, Length = 0x17f00]
 
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
-.text                        0x100               0x530           0x7c8  (1992)
-.text                        0x630               0x6b4           0xa0e  (2574)
-.dinit                       0xce4                 0xe            0x15  (21)
+.text                        0x100               0x56e           0x825  (2085)
+.text                        0x66e               0x41e           0x62d  (1581)
+.dinit                       0xa8c                0x16            0x21  (33)
 
-                     Total program memory used (bytes):         0x11eb  (4587) 3%
+                     Total program memory used (bytes):          0xe73  (3699) 2%
 
 
 Data Memory  [Origin = 0x800, Length = 0x2000]
@@ -112,8 +117,9 @@ Data Memory  [Origin = 0x800, Length = 0x2000]
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
 .nbss                        0x800                   0            0x1e  (30)
+.ndata                       0x81e                   0             0x2  (2)
 
-                        Total data memory used (bytes):           0x1e  (30) <1%
+                        Total data memory used (bytes):           0x20  (32) <1%
 
 
 Dynamic Memory Usage
@@ -121,27 +127,27 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                        0x81e                              0x1fe2  (8162)
+stack                        0x820                              0x1fe0  (8160)
 
-                        Maximum dynamic memory (bytes):         0x1fe2  (8162)
+                        Maximum dynamic memory (bytes):         0x1fe0  (8160)
 
 
 External Symbols in Data Memory (by address):
 
                     0x0800                  _motor_r
-                    0x0808                  _motor_l
+                    0x0804                  _motor_l
 
 External Symbols in Data Memory (by name):
 
-                    0x0808                  _motor_l
+                    0x0804                  _motor_l
                     0x0800                  _motor_r
 
 External Symbols in Program Memory (by address):
 
                   0x000100                  __resetPRI
                   0x00012c                  __psv_init
-                  0x00013c                  __data_init
                   0x00013c                  __data_init_standard
+                  0x00013c                  __data_init
                   0x00019a                  __T5Interrupt
                   0x000226                  __T4Interrupt
                   0x0002b2                  _e_init_motors
@@ -153,78 +159,84 @@ External Symbols in Program Memory (by address):
                   0x00038e                  _e_set_steps_right
                   0x00039e                  __DefaultInterrupt
                   0x0003a2                  ___divsf3
-                  0x000426                  ___fixsfsi
-                  0x000468                  ___fixunssfsi
-                  0x00049e                  ___floatsisf
-                  0x0004a4                  __fpack
-                  0x0004f0                  __funpack
-                  0x00051a                  __funpack2
-                  0x00052a                  __fPropagateNaN
-                  0x00053c                  __fbopExit
-                  0x000544                  __fbopReturnNaN
-                  0x00054a                  ___mulsf3
-                  0x0005b2                  ___floatdisf
-                  0x0005d2                  ___floatundisf
-                  0x000630                  _e_set_led
-                  0x0009aa                  _e_set_body_led
-                  0x0009ea                  _e_set_front_led
-                  0x000a2a                  _e_led_clear
-                  0x000a40                  _Init_T3
-                  0x000a60                  __T3Interrupt
-                  0x000a92                  _e_motor_go_to_position
-                  0x000acc                  _e_motor_rotate
-                  0x000b62                  _e_motor_move_dist
-                  0x000b9c                  _e_motor_set_speed
-                  0x000ba6                  _stop
-                  0x000bdc                  _e_motor_should_stop
-                  0x000c3e                  _main
-                  0x000c5a                  _e_init_port
+                  0x000426                  ___gtsf2
+                  0x000426                  ___gesf2
+                  0x00042a                  ___fixsfsi
+                  0x00046c                  ___fixunssfsi
+                  0x0004a2                  ___floatsisf
+                  0x0004a8                  ___floatunsisf
+                  0x0004ac                  __fpack
+                  0x0004f8                  __funpack
+                  0x000522                  __funpack2
+                  0x000532                  __fPropagateNaN
+                  0x000544                  __fbopExit
+                  0x00054c                  __fbopReturnNaN
+                  0x000552                  ___mulsf3
+                  0x0005ba                  __fcompare
+                  0x0005f0                  ___floatdisf
+                  0x000610                  ___floatundisf
+                  0x00066e                  _e_motor_should_stop_acc
+                  0x0006a2                  _e_motor_select_prescaler
+                  0x00071a                  _Init_T3
+                  0x0007c6                  __T3Interrupt
+                  0x000830                  _e_motor_go_to_position
+                  0x000866                  _e_motor_rotate
+                  0x0008f0                  _e_motor_move_dist
+                  0x000932                  _e_motor_set_speed
+                  0x000946                  _e_motor_stop
+                  0x00097c                  _e_motor_should_stop
+                  0x0009de                  _e_motor_init_dispatcher
+                  0x0009f4                  _main
+                  0x000a02                  _e_init_port
                   0xf8000a                  __FGS.sec
 
 External Symbols in Program Memory (by name):
 
-                  0x000a40                  _Init_T3
+                  0x00071a                  _Init_T3
                   0x00039e                  __DefaultInterrupt
                   0xf8000a                  __FGS.sec
-                  0x000a60                  __T3Interrupt
+                  0x0007c6                  __T3Interrupt
                   0x000226                  __T4Interrupt
                   0x00019a                  __T5Interrupt
                   0x0003a2                  ___divsf3
-                  0x000426                  ___fixsfsi
-                  0x000468                  ___fixunssfsi
-                  0x0005b2                  ___floatdisf
-                  0x00049e                  ___floatsisf
-                  0x0005d2                  ___floatundisf
-                  0x00054a                  ___mulsf3
+                  0x00042a                  ___fixsfsi
+                  0x00046c                  ___fixunssfsi
+                  0x0005f0                  ___floatdisf
+                  0x0004a2                  ___floatsisf
+                  0x000610                  ___floatundisf
+                  0x0004a8                  ___floatunsisf
+                  0x000426                  ___gesf2
+                  0x000426                  ___gtsf2
+                  0x000552                  ___mulsf3
                   0x00013c                  __data_init
                   0x00013c                  __data_init_standard
-                  0x00052a                  __fPropagateNaN
-                  0x00053c                  __fbopExit
-                  0x000544                  __fbopReturnNaN
-                  0x0004a4                  __fpack
-                  0x0004f0                  __funpack
-                  0x00051a                  __funpack2
+                  0x000532                  __fPropagateNaN
+                  0x000544                  __fbopExit
+                  0x00054c                  __fbopReturnNaN
+                  0x0005ba                  __fcompare
+                  0x0004ac                  __fpack
+                  0x0004f8                  __funpack
+                  0x000522                  __funpack2
                   0x00012c                  __psv_init
                   0x000100                  __resetPRI
                   0x00036a                  _e_get_steps_left
                   0x000384                  _e_get_steps_right
                   0x0002b2                  _e_init_motors
-                  0x000c5a                  _e_init_port
-                  0x000a2a                  _e_led_clear
-                  0x000a92                  _e_motor_go_to_position
-                  0x000b62                  _e_motor_move_dist
-                  0x000acc                  _e_motor_rotate
-                  0x000b9c                  _e_motor_set_speed
-                  0x000bdc                  _e_motor_should_stop
-                  0x0009aa                  _e_set_body_led
-                  0x0009ea                  _e_set_front_led
-                  0x000630                  _e_set_led
+                  0x000a02                  _e_init_port
+                  0x000830                  _e_motor_go_to_position
+                  0x0009de                  _e_motor_init_dispatcher
+                  0x0008f0                  _e_motor_move_dist
+                  0x000866                  _e_motor_rotate
+                  0x0006a2                  _e_motor_select_prescaler
+                  0x000932                  _e_motor_set_speed
+                  0x00097c                  _e_motor_should_stop
+                  0x00066e                  _e_motor_should_stop_acc
+                  0x000946                  _e_motor_stop
                   0x0002ba                  _e_set_speed_left
                   0x000312                  _e_set_speed_right
                   0x000374                  _e_set_steps_left
                   0x00038e                  _e_set_steps_right
-                  0x000c3e                  _main
-                  0x000ba6                  _stop
+                  0x0009f4                  _main
 
 Memory Configuration
 
@@ -252,9 +264,8 @@ FICD             0xf8000c           0x000002
 Linker script and memory map
 
 LOAD build/default/production/libmot_ext.o
-LOAD build/default/production/_ext/263976809/e_init_port.o
-LOAD build/default/production/_ext/263976809/e_led.o
-LOAD build/default/production/_ext/263976809/e_motors.o
+LOAD build/default/production/_ext/462069326/e_init_port.o
+LOAD build/default/production/_ext/462069326/e_motors.o
                     0x0001                  __MPLAB_BUILD = 0x1
 LOAD /Applications/microchip/xc16/v1.24/bin/bin/../../lib/dsPIC30F/libp30F6014A-elf.a
 LOAD /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libfx-elf.a
@@ -283,7 +294,7 @@ LOAD /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libfx-elf.a
                   0x000002          0x2 SHORT 0x0 ((ABSOLUTE (__reset) >> 0x10) & 0x7f)
                   0x000003          0x2 SHORT 0x0
 
-.text             0x000100        0x530
+.text             0x000100        0x56e
  *(.init)
  .init            0x000100         0x3c /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libpic30-elf.a(crt0_standard.o)
                   0x000100                  __reset
@@ -295,7 +306,7 @@ LOAD /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libfx-elf.a
  *(.user_init)
  *(.handle)
  *(.isr*)
- .isr.text        0x00019a        0x204 build/default/production/_ext/263976809/e_motors.o
+ .isr.text        0x00019a        0x204 build/default/production/_ext/462069326/e_motors.o
                   0x00019a                  __T5Interrupt
                   0x000226                  __T4Interrupt
                   0x0002b2                  _e_init_motors
@@ -313,38 +324,47 @@ LOAD /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libfx-elf.a
  *(.lib*)
  .libm.divfs3     0x0003a2         0x84 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(divsf3.eo)
                   0x0003a2                  ___divsf3
- .libm.fixsfsi    0x000426         0x42 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(fixsfsi.eo)
-                  0x000426                  _(float, int, long long, short, float, short, int)
+ .libm.gtsf2      0x000426          0x4 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(fgtge.eo)
+                  0x000426                  ___gtsf2
+                  0x000426                  ___gesf2
+ .libm.fixsfsi    0x00042a         0x42 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(fixsfsi.eo)
+                  0x00042a                  _(float, int, long long, short, float, short, int)
  .libm.fixunssfsi
-                  0x000468         0x36 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(fixunssfsi.eo)
-                  0x000468                  ___fixunssfsi
+                  0x00046c         0x36 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(fixunssfsi.eo)
+                  0x00046c                  ___fixunssfsi
  .libm.floatsisf
-                  0x00049e          0x6 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(floatsisf.eo)
-                  0x00049e                  ___floatsisf
- .libm.fpack      0x0004a4         0x4c /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(fpack.eo)
-                  0x0004a4                  __fpack
- .libm.funpack    0x0004f0         0x2a /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(funpack.eo)
-                  0x0004f0                  __funpack
+                  0x0004a2          0x6 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(floatsisf.eo)
+                  0x0004a2                  ___floatsisf
+ .libm.floatunsisf
+                  0x0004a8          0x4 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(floatunsisf.eo)
+                  0x0004a8                  ___floatunsisf
+ .libm.fpack      0x0004ac         0x4c /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(fpack.eo)
+                  0x0004ac                  __fpack
+ .libm.funpack    0x0004f8         0x2a /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(funpack.eo)
+                  0x0004f8                  __funpack
  .libm.funpack2
-                  0x00051a         0x10 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(funpack2.eo)
-                  0x00051a                  __funpack2
+                  0x000522         0x10 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(funpack2.eo)
+                  0x000522                  __funpack2
  .libm.fPropagateNaN
-                  0x00052a         0x12 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(futil.eo)
-                  0x00052a                  __fPropagateNaN
+                  0x000532         0x12 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(futil.eo)
+                  0x000532                  __fPropagateNaN
  .libm.fbobExit
-                  0x00053c          0x8 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(futil.eo)
-                  0x00053c                  __fbopExit
+                  0x000544          0x8 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(futil.eo)
+                  0x000544                  __fbopExit
  .libm.fbopReturnNaN
-                  0x000544          0x6 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(futil.eo)
-                  0x000544                  __fbopReturnNaN
- .libm.mulsf3     0x00054a         0x68 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(mulsf3.eo)
-                  0x00054a                  ___mulsf3
+                  0x00054c          0x6 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(futil.eo)
+                  0x00054c                  __fbopReturnNaN
+ .libm.mulsf3     0x000552         0x68 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(mulsf3.eo)
+                  0x000552                  ___mulsf3
+ .libm.fcompare
+                  0x0005ba         0x36 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(fcompare.eo)
+                  0x0005ba                  __fcompare
  .libm.floatdisf
-                  0x0005b2         0x20 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(floatdisf.eo)
-                  0x0005b2                  ___floatdisf
+                  0x0005f0         0x20 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(floatdisf.eo)
+                  0x0005f0                  ___floatdisf
  .libm.floatundisf
-                  0x0005d2         0x5e /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(floatundisf.eo)
-                  0x0005d2                  ___floatundisf
+                  0x000610         0x5e /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(floatundisf.eo)
+                  0x000610                  ___floatundisf
 
 usercode
  *(usercode)
@@ -363,15 +383,15 @@ __FUID3
 
 __FOSC            0xf80000          0x2
  *(__FOSC.sec*)
- __FOSC.sec       0xf80000          0x2 build/default/production/_ext/263976809/e_init_port.o
+ __FOSC.sec       0xf80000          0x2 build/default/production/_ext/462069326/e_init_port.o
 
 __FWDT            0xf80002          0x2
  *(__FWDT.sec*)
- __FWDT.sec       0xf80002          0x2 build/default/production/_ext/263976809/e_init_port.o
+ __FWDT.sec       0xf80002          0x2 build/default/production/_ext/462069326/e_init_port.o
 
 __FBORPOR         0xf80004          0x2
  *(__FBORPOR.sec*)
- __FBORPOR.sec    0xf80004          0x2 build/default/production/_ext/263976809/e_init_port.o
+ __FBORPOR.sec    0xf80004          0x2 build/default/production/_ext/462069326/e_init_port.o
 
 __FBS
  *(__FBS.sec*)
@@ -396,41 +416,36 @@ userdata
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x2629
+.debug_info       0x000000       0x250b
  *(.debug_info)
- .debug_info      0x000000        0xb8c build/default/production/libmot_ext.o
- .debug_info      0x000b8c        0xca4 build/default/production/_ext/263976809/e_init_port.o
- .debug_info      0x001830        0x364 build/default/production/_ext/263976809/e_led.o
- .debug_info      0x001b94        0xa95 build/default/production/_ext/263976809/e_motors.o
+ .debug_info      0x000000        0xe14 build/default/production/libmot_ext.o
+ .debug_info      0x000e14        0xc83 build/default/production/_ext/462069326/e_init_port.o
+ .debug_info      0x001a97        0xa74 build/default/production/_ext/462069326/e_motors.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x3eb
+.debug_abbrev     0x000000        0x379
  *(.debug_abbrev)
- .debug_abbrev    0x000000        0x181 build/default/production/libmot_ext.o
- .debug_abbrev    0x000181         0x8e build/default/production/_ext/263976809/e_init_port.o
- .debug_abbrev    0x00020f         0xa3 build/default/production/_ext/263976809/e_led.o
- .debug_abbrev    0x0002b2        0x139 build/default/production/_ext/263976809/e_motors.o
+ .debug_abbrev    0x000000        0x1b2 build/default/production/libmot_ext.o
+ .debug_abbrev    0x0001b2         0x8e build/default/production/_ext/462069326/e_init_port.o
+ .debug_abbrev    0x000240        0x139 build/default/production/_ext/462069326/e_motors.o
 
-.debug_line       0x000000        0xd53
+.debug_line       0x000000        0xb21
  *(.debug_line)
- .debug_line      0x000000        0x2e1 build/default/production/libmot_ext.o
- .debug_line      0x0002e1        0x2da build/default/production/_ext/263976809/e_init_port.o
- .debug_line      0x0005bb        0x2ea build/default/production/_ext/263976809/e_led.o
- .debug_line      0x0008a5        0x4ae build/default/production/_ext/263976809/e_motors.o
+ .debug_line      0x000000        0x3cf build/default/production/libmot_ext.o
+ .debug_line      0x0003cf        0x2bf build/default/production/_ext/462069326/e_init_port.o
+ .debug_line      0x00068e        0x493 build/default/production/_ext/462069326/e_motors.o
 
-.debug_frame      0x000000        0x1c0
+.debug_frame      0x000000        0x19c
  *(.debug_frame)
- .debug_frame     0x000000         0xa4 build/default/production/libmot_ext.o
- .debug_frame     0x0000a4         0x24 build/default/production/_ext/263976809/e_init_port.o
- .debug_frame     0x0000c8         0x54 build/default/production/_ext/263976809/e_led.o
- .debug_frame     0x00011c         0xa4 build/default/production/_ext/263976809/e_motors.o
+ .debug_frame     0x000000         0xd4 build/default/production/libmot_ext.o
+ .debug_frame     0x0000d4         0x24 build/default/production/_ext/462069326/e_init_port.o
+ .debug_frame     0x0000f8         0xa4 build/default/production/_ext/462069326/e_motors.o
 
-.debug_str        0x000000        0x109
+.debug_str        0x000000        0x119
  *(.debug_str)
- .debug_str       0x000000         0x47 build/default/production/libmot_ext.o
- .debug_str       0x000047         0x5f build/default/production/_ext/263976809/e_init_port.o
- .debug_str       0x0000a6         0x12 build/default/production/_ext/263976809/e_led.o
- .debug_str       0x0000b8         0x51 build/default/production/_ext/263976809/e_motors.o
+ .debug_str       0x000000         0x69 build/default/production/libmot_ext.o
+ .debug_str       0x000069         0x5f build/default/production/_ext/462069326/e_init_port.o
+ .debug_str       0x0000c8         0x51 build/default/production/_ext/462069326/e_motors.o
 
 .debug_loc
  *(.debug_loc)
@@ -439,30 +454,26 @@ userdata
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000        0x235
+                  0x000000        0x23b
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000         0xcb build/default/production/libmot_ext.o
+                  0x000000        0x128 build/default/production/libmot_ext.o
  .debug_pubnames
-                  0x0000cb         0x4c build/default/production/_ext/263976809/e_init_port.o
+                  0x000128         0x4c build/default/production/_ext/462069326/e_init_port.o
  .debug_pubnames
-                  0x000117         0x57 build/default/production/_ext/263976809/e_led.o
- .debug_pubnames
-                  0x00016e         0xc7 build/default/production/_ext/263976809/e_motors.o
+                  0x000174         0xc7 build/default/production/_ext/462069326/e_motors.o
 
 .debug_ranges
  *(.debug_ranges)
 
-.debug_aranges    0x000000         0x60
+.debug_aranges    0x000000         0x48
  *(.debug_aranges)
  .debug_aranges
                   0x000000         0x18 build/default/production/libmot_ext.o
  .debug_aranges
-                  0x000018         0x18 build/default/production/_ext/263976809/e_init_port.o
+                  0x000018         0x18 build/default/production/_ext/462069326/e_init_port.o
  .debug_aranges
-                  0x000030         0x18 build/default/production/_ext/263976809/e_led.o
- .debug_aranges
-                  0x000048         0x18 build/default/production/_ext/263976809/e_motors.o
+                  0x000030         0x18 build/default/production/_ext/462069326/e_motors.o
 
 .ivt              0x000004         0x7c
                   0x000004          0x4 LONG 0x39e DEFINED (__ReservedTrap0)?ABSOLUTE (__ReservedTrap0):ABSOLUTE (__DefaultInterrupt)
@@ -480,7 +491,7 @@ userdata
                   0x00001c          0x4 LONG 0x39e DEFINED (__IC2Interrupt)?ABSOLUTE (__IC2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00001e          0x4 LONG 0x39e DEFINED (__OC2Interrupt)?ABSOLUTE (__OC2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000020          0x4 LONG 0x39e DEFINED (__T2Interrupt)?ABSOLUTE (__T2Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x000022          0x4 LONG 0xa60 DEFINED (__T3Interrupt)?ABSOLUTE (__T3Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000022          0x4 LONG 0x7c6 DEFINED (__T3Interrupt)?ABSOLUTE (__T3Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000024          0x4 LONG 0x39e DEFINED (__SPI1Interrupt)?ABSOLUTE (__SPI1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000026          0x4 LONG 0x39e DEFINED (__U1RXInterrupt)?ABSOLUTE (__U1RXInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000028          0x4 LONG 0x39e DEFINED (__U1TXInterrupt)?ABSOLUTE (__U1TXInterrupt):ABSOLUTE (__DefaultInterrupt)
@@ -544,7 +555,7 @@ userdata
                   0x00009c          0x4 LONG 0x39e DEFINED (__AltIC2Interrupt)?ABSOLUTE (__AltIC2Interrupt):DEFINED (__IC2Interrupt)?ABSOLUTE (__IC2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00009e          0x4 LONG 0x39e DEFINED (__AltOC2Interrupt)?ABSOLUTE (__AltOC2Interrupt):DEFINED (__OC2Interrupt)?ABSOLUTE (__OC2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x0000a0          0x4 LONG 0x39e DEFINED (__AltT2Interrupt)?ABSOLUTE (__AltT2Interrupt):DEFINED (__T2Interrupt)?ABSOLUTE (__T2Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x0000a2          0x4 LONG 0xa60 DEFINED (__AltT3Interrupt)?ABSOLUTE (__AltT3Interrupt):DEFINED (__T3Interrupt)?ABSOLUTE (__T3Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000a2          0x4 LONG 0x7c6 DEFINED (__AltT3Interrupt)?ABSOLUTE (__AltT3Interrupt):DEFINED (__T3Interrupt)?ABSOLUTE (__T3Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x0000a4          0x4 LONG 0x39e DEFINED (__AltSPI1Interrupt)?ABSOLUTE (__AltSPI1Interrupt):DEFINED (__SPI1Interrupt)?ABSOLUTE (__SPI1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x0000a6          0x4 LONG 0x39e DEFINED (__AltU1RXInterrupt)?ABSOLUTE (__AltU1RXInterrupt):DEFINED (__U1RXInterrupt)?ABSOLUTE (__U1RXInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x0000a8          0x4 LONG 0x39e DEFINED (__AltU1TXInterrupt)?ABSOLUTE (__AltU1TXInterrupt):DEFINED (__U1TXInterrupt)?ABSOLUTE (__U1TXInterrupt):ABSOLUTE (__DefaultInterrupt)
@@ -1609,77 +1620,80 @@ LOAD default_isr
 LOAD data_init
 
 .debug_pubtypes
-                  0x000060        0x301
+                  0x000048        0x31c
  .debug_pubtypes
-                  0x000060         0xd0 build/default/production/libmot_ext.o
+                  0x000048        0x137 build/default/production/libmot_ext.o
  .debug_pubtypes
-                  0x000130        0x13e build/default/production/_ext/263976809/e_init_port.o
+                  0x00017f        0x13e build/default/production/_ext/462069326/e_init_port.o
  .debug_pubtypes
-                  0x00026e         0x4c build/default/production/_ext/263976809/e_led.o
- .debug_pubtypes
-                  0x0002ba         0xa7 build/default/production/_ext/263976809/e_motors.o
+                  0x0002bd         0xa7 build/default/production/_ext/462069326/e_motors.o
 
 __c30_signature
-                  0x000361         0x66
+                  0x000364         0x72
  __c30_signature
-                  0x000361          0x6 build/default/production/libmot_ext.o
+                  0x000364          0x6 build/default/production/libmot_ext.o
  __c30_signature
-                  0x000367          0x6 build/default/production/_ext/263976809/e_init_port.o
+                  0x00036a          0x6 build/default/production/_ext/462069326/e_init_port.o
  __c30_signature
-                  0x00036d          0x6 build/default/production/_ext/263976809/e_led.o
+                  0x000370          0x6 build/default/production/_ext/462069326/e_motors.o
  __c30_signature
-                  0x000373          0x6 build/default/production/_ext/263976809/e_motors.o
+                  0x000376          0x6 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libpic30-elf.a(crt0_standard.o)
  __c30_signature
-                  0x000379          0x6 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libpic30-elf.a(crt0_standard.o)
+                  0x00037c          0x6 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libpic30-elf.a(data_init_standard.o)
  __c30_signature
-                  0x00037f          0x6 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libpic30-elf.a(data_init_standard.o)
+                  0x000382          0x6 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(divsf3.eo)
  __c30_signature
-                  0x000385          0x6 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(divsf3.eo)
+                  0x000388          0x6 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(fgtge.eo)
  __c30_signature
-                  0x00038b          0x6 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(fixsfsi.eo)
+                  0x00038e          0x6 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(fixsfsi.eo)
  __c30_signature
-                  0x000391          0x6 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(fixunssfsi.eo)
+                  0x000394          0x6 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(fixunssfsi.eo)
  __c30_signature
-                  0x000397          0x6 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(floatsisf.eo)
+                  0x00039a          0x6 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(floatsisf.eo)
  __c30_signature
-                  0x00039d          0x6 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(fpack.eo)
+                  0x0003a0          0x6 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(floatunsisf.eo)
  __c30_signature
-                  0x0003a3          0x6 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(funpack.eo)
+                  0x0003a6          0x6 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(fpack.eo)
  __c30_signature
-                  0x0003a9          0x6 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(funpack2.eo)
+                  0x0003ac          0x6 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(funpack.eo)
  __c30_signature
-                  0x0003af          0x6 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(futil.eo)
+                  0x0003b2          0x6 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(funpack2.eo)
  __c30_signature
-                  0x0003b5          0x6 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(mulsf3.eo)
+                  0x0003b8          0x6 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(futil.eo)
  __c30_signature
-                  0x0003bb          0x6 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(floatdisf.eo)
+                  0x0003be          0x6 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(mulsf3.eo)
  __c30_signature
-                  0x0003c1          0x6 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(floatundisf.eo)
+                  0x0003c4          0x6 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(fcompare.eo)
+ __c30_signature
+                  0x0003ca          0x6 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(floatdisf.eo)
+ __c30_signature
+                  0x0003d0          0x6 /Applications/microchip/xc16/v1.24/bin/bin/../../lib/libm-elf.a(floatundisf.eo)
 
 .nbss               0x0800         0x1e
  .nbss              0x0800         0x12 build/default/production/libmot_ext.o
                     0x0800                  _motor_r
-                    0x0808                  _motor_l
- .nbss              0x0812          0xc build/default/production/_ext/263976809/e_motors.o
+                    0x0804                  _motor_l
+ .nbss              0x0812          0xc build/default/production/_ext/462069326/e_motors.o
 
-.text             0x000630        0x6b4
- .text            0x000630        0x410 build/default/production/_ext/263976809/e_led.o
-                  0x000630                  _e_set_led
-                  0x0009aa                  _e_set_body_led
-                  0x0009ea                  _e_set_front_led
-                  0x000a2a                  _e_led_clear
- .text            0x000a40        0x21a build/default/production/libmot_ext.o
-                  0x000a40                  _Init_T3
-                  0x000a60                  __T3Interrupt
-                  0x000a92                  _e_motor_go_to_position
-                  0x000acc                  _e_motor_rotate
-                  0x000b62                  _e_motor_move_dist
-                  0x000b9c                  _e_motor_set_speed
-                  0x000ba6                  _stop
-                  0x000bdc                  _e_motor_should_stop
-                  0x000c3e                  _main
- .text            0x000c5a         0x8a build/default/production/_ext/263976809/e_init_port.o
-                  0x000c5a                  _e_init_port
+.ndata              0x081e          0x2
+ .ndata             0x081e          0x2 build/default/production/libmot_ext.o
 
-.dinit            0x000ce4          0xe
- .dinit           0x000ce4          0xe data_init
+.text             0x00066e        0x41e
+ .text            0x00066e        0x394 build/default/production/libmot_ext.o
+                  0x00066e                  _e_motor_should_stop_acc
+                  0x0006a2                  _e_motor_select_prescaler
+                  0x00071a                  _Init_T3
+                  0x0007c6                  __T3Interrupt
+                  0x000830                  _e_motor_go_to_position
+                  0x000866                  _e_motor_rotate
+                  0x0008f0                  _e_motor_move_dist
+                  0x000932                  _e_motor_set_speed
+                  0x000946                  _e_motor_stop
+                  0x00097c                  _e_motor_should_stop
+                  0x0009de                  _e_motor_init_dispatcher
+                  0x0009f4                  _main
+ .text            0x000a02         0x8a build/default/production/_ext/462069326/e_init_port.o
+                  0x000a02                  _e_init_port
+
+.dinit            0x000a8c         0x16
+ .dinit           0x000a8c         0x16 data_init

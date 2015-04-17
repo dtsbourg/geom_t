@@ -17,25 +17,85 @@ struct Motor {
 } motor_r, motor_l;
 
 static int exec = 0;
+static int acc  = 1;
+static speed_t speed_obj;
+static speed_t current_speed;
 
-void Init_T3()
+
+int e_motor_should_stop_acc(speed_t current_speed)
 {
-    
-    T3CON = TMR_INIT;
-    T3CONbits.TCKPS = PRESCALER;
+    return ((ABS(current_speed.l) >= ABS(speed_obj.l))
+         && (ABS(current_speed.r) >= ABS(speed_obj.r)));
+}
 
-    TMR3 = TMR_INIT;
-    
-    PR3 = (1000);
+//Prevents PR3 overflow
+int e_motor_select_prescaler(float delta_time)
+{
+    if (delta_time >= 0.01)         return 3; //prescaler = 256; 57600 < PR3 < 576
+    else if (delta_time >=   0.001) return 2; //prescaler = 64 ;  2304 < PR3 < 230
+    else if (delta_time >=  0.0001) return 1; //prescaler = 8  ; 18432 < PR3 < 1843
+    else if (delta_time >= 0.00001) return 0; //prescaler = 1  ;  1474 < PR3 < 147
+    else return -1; //delta_time < 10 µs => error
+}
 
-    IFS0bits.T3IF = DISABLE; //Interrupt flag
-    IEC0bits.T3IE = ENABLE;  //Interrupt enable
-    T3CONbits.TON = TMR_ON;  //Start timer
+void Init_T3(speed_t final_speed, int time)
+{
+    if (!time)
+    {
+        acc = 0;
+        T3CON = TMR_INIT;
+        T3CONbits.TCKPS = PRESCALER;
+
+        TMR3 = TMR_INIT;
+
+        PR3 = 1000;
+
+        IFS0bits.T3IF = DISABLE; //Interrupt flag
+        IEC0bits.T3IE = ENABLE;  //Interrupt enable
+        T3CONbits.TON = TMR_ON;  //Start timer
+    } else {
+        acc=1;
+        
+        speed_obj = final_speed;
+        current_speed = ZERO;
+
+        float avg_speed = ( final_speed.l + final_speed.r ) / 2.0;
+        float delta_time = time / avg_speed;
+
+        int prescaler = e_motor_select_prescaler(delta_time);
+
+        T3CON = TMR_INIT;
+        T3CONbits.TCKPS = prescaler;
+
+        TMR3 = TMR_INIT;
+
+        PR3 = (FCY/prescaler)*(delta_time)/(5.0);
+
+        IFS0bits.T3IF = DISABLE; //Interrupt flag
+        IEC0bits.T3IE = ENABLE;  //Interrupt enable
+        T3CONbits.TON = TMR_ON;  //Start timer
+    }
 }
 
 void _ISR __attribute__((auto_psv)) _T3Interrupt (void)
 {
     IFS0bits.T3IF = DISABLE;
+    
+    if (acc && !e_motor_should_stop_acc(current_speed)) {
+
+        current_speed.l = current_speed.l + 5;
+        current_speed.r = current_speed.r + 5;
+        
+        e_motor_set_speed(current_speed);
+
+        // make sure steps objective is respected
+        //Otherwise :
+//        position_t current_pos = {.l = motor_l.step_max - e_get_steps_left(),
+//                                  .r = motor_r.step_max - e_get_steps_right()};
+//
+//        e_motor_go_to_position(current_pos, current_speed);
+    }
+
     exec = !e_motor_should_stop();
 }
 
@@ -68,11 +128,12 @@ void e_motor_rotate(deg_t angle)
     e_motor_go_to_position(pos, speed);
 }
 
+
 void e_motor_move_dist(dist_mm_t dist, deg_t angle)
 {
     unsigned int steps = (unsigned int) (dist*STEP_PER_MM);
     position_t pos = ((position_t){ .l = steps, .r = steps });
-    speed_t speed = MID_F;
+    speed_t speed = acc ? current_speed : MID_F;
     
     if (angle) {
         e_motor_rotate(angle);
@@ -99,6 +160,11 @@ void e_motor_stop(void)
     MOTOR2_PHC = 0;
     MOTOR2_PHD = 0;
 
+    MOTOR1_PHA = 0;
+    MOTOR1_PHB = 0;
+    MOTOR1_PHC = 0;
+    MOTOR1_PHD = 0;
+
     LATA = LATA_ON;
 
     for(i=0;i<600000;i++)
@@ -114,20 +180,20 @@ int e_motor_should_stop(void)
          && (ABS(e_get_steps_right()) >= ABS(motor_r.step_max)));
 }
 
-void e_motor_init_dispatcher()
+void e_motor_init_dispatcher(int acc)
 {
-    Init_T3();
+    if (acc) Init_T3(FAST_F,1);
+    else Init_T3(ZERO, 0);
+    
     e_init_motors();
 }
 
+//
 //int main ()
 //{
-//    e_init_motors();
-//    Init_T3();
+//    e_motor_init_dispatcher(1);
 //
-//    e_motor_move_dist(100, 0);
-//    e_motor_move_dist(100, 120);
-//    e_motor_move_dist(100, 120);
+//    e_motor_move_dist(300, 0);
 //
 //    e_motor_stop();
 //
